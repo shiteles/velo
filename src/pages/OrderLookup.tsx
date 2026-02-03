@@ -139,7 +139,7 @@ const OrderLookup = () => {
                   <Package className="w-5 h-5 text-muted-foreground" />
                   <div>
                     <p className="text-sm text-muted-foreground">Pedido</p>
-                    <p className="font-mono font-medium" data-testid="order-result-id">
+                    <p className="font-mono font-medium">
                       {searchedOrder.id}
                     </p>
                   </div>
@@ -150,7 +150,6 @@ const OrderLookup = () => {
                       ? 'bg-green-100 text-green-700'
                       : 'bg-red-100 text-red-700'
                   }`}
-                  data-testid="order-result-status"
                 >
                   {searchedOrder.status === 'APROVADO' ? (
                     <CheckCircle className="w-4 h-4" />
