@@ -1,14 +1,14 @@
 export function generateOrderCode() {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numbers = '0123456789';
-    const pattern = ['L', 'N', 'N', 'L', 'L', 'L'];
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    const numbers = '0123456789'
+    const pattern = ['L', 'N', 'N', 'L', 'L', 'L']
 
-    let code = 'VLO-';
+    let code = 'VLO-'
 
     for (let i = 0; i < pattern.length; i++) {
-        const source = pattern[i] === 'L' ? letters : numbers;
-        code += source[Math.floor(Math.random() * source.length)];
+        const source = pattern[i] === 'L' ? letters : numbers
+        code += source[Math.floor(Math.random() * source.length)]
     }
 
-    return code;
+    return code
 }
