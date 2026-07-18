@@ -19,7 +19,7 @@ test.describe('Consulta de Pedido', () => {
 
         // Test Data
         const order = {
-            number: 'VLO-N79BUR',
+            number: 'VLO-SINITP',
             status: 'APROVADO' as const,
             color: 'Glacier Blue',
             wheels: 'aero Wheels',
@@ -74,7 +74,7 @@ test.describe('Consulta de Pedido', () => {
 
         // Test Data
         const order = {
-            number: 'VLO-MLTU59',
+            number: 'VLO-5FZNRS',
             status: 'REPROVADO' as const,
             color: 'Midnight Black',
             wheels: 'sport Wheels',
@@ -128,7 +128,7 @@ test.describe('Consulta de Pedido', () => {
 
         // Test Data
         const order = {
-            number: 'VLO-YZFTUH',
+            number: 'VLO-0OD3SK',
             status: 'EM_ANALISE' as const,
             color: 'Lunar White',
             wheels: 'aero Wheels',
