@@ -4,7 +4,7 @@ import { createConfiguratorActions } from './actions/configuratorActions'
 import { createOrderActions } from './actions/orderActions'
 
 type App = {
-  orderLockup: ReturnType<typeof createOrderLockupActions>
+  orderLookup: ReturnType<typeof createOrderLockupActions>
   configurator: ReturnType<typeof createConfiguratorActions>
   order: ReturnType<typeof createOrderActions>
 }
@@ -12,7 +12,7 @@ type App = {
 export const test = base.extend<{ app: App }>({
   app: async ({ page }, use) => {
     const app: App = {
-      orderLockup: createOrderLockupActions(page),
+      orderLookup: createOrderLockupActions(page),
       configurator: createConfiguratorActions(page),
       order: createOrderActions(page),
     }
