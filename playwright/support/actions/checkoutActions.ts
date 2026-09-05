@@ -1,7 +1,7 @@
 import { Page, expect } from '@playwright/test'
 
-export function createOrderActions(page: Page) {
-  const summaryTotalPrice = page.getByTestId('summary-total-price')
+export function createCheckoutActions(page: Page) {
+
   const terms = page.getByTestId('checkout-terms')
 
   const alerts = {
@@ -15,14 +15,18 @@ export function createOrderActions(page: Page) {
   }
 
   return {
+
     elements: {
-      summaryTotalPrice,
       terms,
-      alerts,
+      alerts
     },
 
-    async validateSummaryPrice(price: string) {
-      await expect(summaryTotalPrice).toHaveText(price)
+    async expectLoaded() {
+      await expect(page.getByRole('heading', { name: 'Finalizar Pedido' })).toBeVisible()
+    },
+
+    async expectSummaryTotal(price: string) {
+      await expect(page.getByTestId('summary-total-price')).toHaveText(price)
     },
 
     async fillCustomerData(data: {
@@ -44,12 +48,16 @@ export function createOrderActions(page: Page) {
       await page.getByRole('option', { name: storeName }).click()
     },
 
+    async selectPaymentMethod(method: string) {
+      await page.getByRole('button', { name: new RegExp(method, 'i') }).click()
+    },
+
     async acceptTerms() {
       await terms.check()
     },
 
     async submit() {
       await page.getByRole('button', { name: 'Confirmar Pedido' }).click()
-    }
+    },
   }
 }

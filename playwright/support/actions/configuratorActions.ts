@@ -1,51 +1,44 @@
 import { Page, expect } from '@playwright/test'
 
 export function createConfiguratorActions(page: Page) {
-  const totalPrice = page.getByTestId('total-price')
-
-  const optionalCheckbox = (name: string) =>
-    page.getByRole('checkbox', { name: new RegExp(name) })
+  const optionalCheckbox = (name: string | RegExp) => page.getByRole('checkbox', { name })
 
   return {
-    elements: {
-      totalPrice,
-    },
-
     async open() {
       await page.goto('/configure')
-      await page.evaluate(() => localStorage.removeItem('velo-configurator-storage'))
-      await page.reload()
-      await expect(totalPrice).toBeVisible()
     },
 
-    async selectColor(color: string) {
-      await page.getByRole('button', { name: color }).click()
+    async selectColor(name: string) {
+      await page.getByRole('button', { name }).click()
     },
 
-    async selectWheels(wheels: string) {
-      await page.getByRole('button', { name: new RegExp(wheels) }).click()
+    async selectWheels(name: string | RegExp) {
+      await page.getByRole('button', { name }).click()
     },
 
-    async checkOptional(name: string) {
-      await optionalCheckbox(name).check()
+    async expectPrice(price: string) {
+      const priceElement = page.getByTestId('total-price')
+      await expect(priceElement).toBeVisible()
+      await expect(priceElement).toHaveText(price)
     },
 
-    async uncheckOptional(name: string) {
-      await optionalCheckbox(name).uncheck()
-    },
-
-    async validatePrice(price: string) {
-      await expect(totalPrice).toHaveText(price)
-    },
-
-    async validateCarImage(src: string) {
+    async expectCarImageSrc(src: string) {
       const carImage = page.locator('img[alt^="Velô Sprint"]')
       await expect(carImage).toHaveAttribute('src', src)
     },
 
-    async goToCheckout() {
+    async checkOptional(name: string | RegExp) {
+      await expect(optionalCheckbox(name)).toBeVisible()
+      await optionalCheckbox(name).check()
+    },
+
+    async uncheckOptional(name: string | RegExp) {
+      await expect(optionalCheckbox(name)).toBeVisible()
+      await optionalCheckbox(name).uncheck()
+    },
+
+    async finishConfigurator() {
       await page.getByRole('button', { name: 'Monte o Seu' }).click()
-      await expect(page).toHaveURL(/\/order$/)
     },
   }
 }

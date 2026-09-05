@@ -1,7 +1,7 @@
 import { db } from './database'
 import { OrderTable } from './schema'
 
-import { OrderDetails } from '../actions/orderLockupActions'
+import { OrderDetails } from '../actions/orderLookupActions'
 
 import crypto from 'crypto'
 
