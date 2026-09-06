@@ -1,4 +1,5 @@
 import { test, expect } from '../support/fixtures'
+import { deleteOrderByNumber } from '../support/database/orderRepository'
 
 test.describe('Checkout', () => {
 
@@ -155,9 +156,15 @@ test.describe('Checkout', () => {
       // Assert
       await expect(page).toHaveURL(/\/success/)
       await expect(page.getByRole('heading', { name: 'Pedido Aprovado!' })).toBeVisible()
+
+      const orderNumberLocator = page.getByTestId('order-id')
+      await expect(orderNumberLocator).toHaveText(/^VLO-/)
+
+      const orderNumber = (await orderNumberLocator.innerText()).trim()
+      await deleteOrderByNumber(orderNumber)
     })
 
-})
+  })
 
 });
 
